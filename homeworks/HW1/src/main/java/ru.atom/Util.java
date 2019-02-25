@@ -25,7 +25,8 @@ public class Util {
      * @return the largest of values.
      */
     public static int max(int[] values) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return 0;
     }
 
     /**
@@ -35,7 +36,8 @@ public class Util {
      * @return the sum of all values.
      */
     public static long sum(int[] values) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return 0;
     }
 
 

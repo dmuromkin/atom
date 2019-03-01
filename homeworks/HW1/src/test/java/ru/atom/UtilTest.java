@@ -1,30 +1,30 @@
-    package ru.atom;
+package ru.atom;
 
-    import org.junit.Test;
+import org.junit.Test;
 
-    import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 
 
-    public class UtilTest {
+public class UtilTest {
 
-        @Test
-        public void max0() throws Exception {
-            assertEquals(42, Util.max(new int[]{42}));
-        }
+    @Test
+    public void max0() throws Exception {
+        assertEquals(42, Util.max(new int[]{42}));
+    }
 
-        @Test
-        public void max1() throws Exception {
-            assertEquals(3, Util.max(new int[]{1, 2, 3}));
-        }
+    @Test
+    public void max1() throws Exception {
+        assertEquals(3, Util.max(new int[]{1, 2, 3}));
+    }
 
-        @Test
-        public void max2() throws Exception {
-            assertEquals(2, Util.max(new int[]{2, 2, 0}));
-        }
+    @Test
+    public void max2() throws Exception {
+        assertEquals(2, Util.max(new int[]{2, 2, 0}));
+    }
 
-        @Test
-        public void max3() throws Exception {
-            int[] values = {3262, 3989, 4825, 3751, 147, 2376, 2866, 1192, 2259, 905, 4810, 2481, 4243,
+    @Test
+    public void max3() throws Exception {
+        int[] values = {3262, 3989, 4825, 3751, 147, 2376, 2866, 1192, 2259, 905, 4810, 2481, 4243,
                 3907, 2958, 4061, 2410, 2253, 273, 3932, 4479, 4771, 1858, 3329, 3427, 3341, 3890, 3283,
                 1469, 2793, 292, 2371, 772, 1207, 2101, 985, 4615, 2290, 1147, 1659, 4000, 2958, 2010,
                 876, 2272, 242, 185, 3452, 2132, 4820, 3756, 577, 740, 731, 4066, 2666, 2316, 1445,
@@ -38,28 +38,28 @@
                 3416, 2494, 3757, 341, 2822, 4187, 2021, 3823, 3751, 2500, 2109, 4262, 4282, 729, 2893,
                 683, 4487, 1150, 2162, 194, 1825, 1100, 1165, 617, 3033, 3589, 966, 2071, 2616, 2958,
                 997, 3760, 3312, 4577, 988, 3325, 472, 367, 4108};
-            assertEquals(4913, Util.max(values));
-        }
+        assertEquals(4913, Util.max(values));
+    }
 
-        @Test
-        public void sum0() throws Exception {
-            assertEquals(42L, Util.sum(new int[] {42}));
-        }
+    @Test
+    public void sum0() throws Exception {
+        assertEquals(42L, Util.sum(new int[]{42}));
+    }
 
-        @Test
-        public void sum1() throws Exception {
-            assertEquals(2L, Util.sum(new int[]{1, -2, 3}));
-        }
+    @Test
+    public void sum1() throws Exception {
+        assertEquals(2L, Util.sum(new int[]{1, -2, 3}));
+    }
 
-        @Test
-        public void sum2() throws Exception {
-            assertEquals(-2L, Util.sum(new int[]{-1, 0, -1}));
-        }
+    @Test
+    public void sum2() throws Exception {
+        assertEquals(-2L, Util.sum(new int[]{-1, 0, -1}));
+    }
 
-        @Test
-        public void sum3() throws Exception {
+    @Test
+    public void sum3() throws Exception {
 
-            int[] values = {-1474724389, 682594446, -1908752577, -1529308579, 2077283217, 2082453684,
+        int[] values = {-1474724389, 682594446, -1908752577, -1529308579, 2077283217, 2082453684,
                 -1393301062, 770907957, -1236598274, 2095271857, -740944851, 690100578, 1205967523,
                 1882042738, -373000365, -202439561, -1040081538, 1588841659, 685998530, 2019352469,
                 -1800807521, 142414883, 1321799336, -2004537327, -942379270, -404489374, -957557834,
@@ -224,6 +224,6 @@
                 230403624, 2089178816, -2031848796, -434079731, 282818750, 1283007243, -2133152874,
                 1414327400, 815984940, 495461839, -107851191, -1472540960, -264932259, -41121395};
 
-            assertEquals(-53_391_415_378L,Util.sum(values));
-        }
+        assertEquals(-53_391_415_378L, Util.sum(values));
     }
+}

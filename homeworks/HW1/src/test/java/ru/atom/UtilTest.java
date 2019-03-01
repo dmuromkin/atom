@@ -43,7 +43,7 @@ public class UtilTest {
 
     @Test
     public void sum0() throws Exception {
-        assertEquals(42L, Util.sum(new int[]{42}));
+        assertEquals(42L, Util.sum(new int[] {42}));
     }
 
     @Test
@@ -224,6 +224,6 @@ public class UtilTest {
                 230403624, 2089178816, -2031848796, -434079731, 282818750, 1283007243, -2133152874,
                 1414327400, 815984940, 495461839, -107851191, -1472540960, -264932259, -41121395};
 
-        assertEquals(-53_391_415_378L, Util.sum(values));
+        assertEquals(-53_391_415_378L,Util.sum(values));
     }
 }

@@ -39,7 +39,7 @@ public class Main {
 
     public static void main(String[] args) {
         int count = 0;
-        log.info("Game started!");
+        log.info("Game started!");//logger
         File path = new File("dictionary.txt");
         if (!path.exists())
             System.out.println("File not found");

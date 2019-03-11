@@ -33,7 +33,7 @@ public class Main {
             result = true;
         else
             System.out.printf("bulls:%d cows:%d\n", bulls, cows);
-        log.info("User word: " + Answer + "   Bulls: " + bulls + "   Cows: " + cows);
+        log.info("User word: " + user_word + "   Bulls: " + bulls + "   Cows: " + cows);
         return result;
     }
 

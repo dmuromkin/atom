@@ -33,7 +33,7 @@ public class Main {
             result = true;
         else
             System.out.printf("bulls:%d cows:%d\n", bulls, cows);
-        log.info("User word: " + Answer + "   Bulls: " + bulls +"   Cows: "+cows);
+        log.info("User word: " + Answer + "   Bulls: " + bulls + "   Cows: " + cows);
         return result;
     }
 
@@ -74,7 +74,7 @@ public class Main {
             if (user_word.length() != answer.length()) {
                 System.out.println("Incorrect word length!");
                 System.out.printf("There are %d letters in my word\n", answer.length());
-                log.info("Incorrect word length: "+user_word.length()+"/"+answer.length());
+                log.info("Incorrect word length: " + user_word.length() + "/" + answer.length());
                 attempts++;
             } else
                 result = Game_Core(user_word, answer);

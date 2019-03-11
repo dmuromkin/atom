@@ -1,0 +1,8 @@
+2019-03-11 12:07:50.520 INFO [main] [Main] [main] [Main.main(Main.java:42)] - Game started!
+2019-03-11 12:08:01.972 INFO [main] [Main] [main] [Main.main(Main.java:77)] - Incorrect word length: 4/6
+2019-03-11 12:08:18.215 INFO [main] [Main] [Game_Core] [Main.Game_Core(Main.java:36)] - User word: retype   Bulls: 3   Cows: 1
+2019-03-11 12:09:04.705 INFO [main] [Main] [Game_Core] [Main.Game_Core(Main.java:36)] - User word: retype   Bulls: 3   Cows: 1
+2019-03-11 12:09:22.363 INFO [main] [Main] [Game_Core] [Main.Game_Core(Main.java:36)] - User word: retype   Bulls: 0   Cows: 2
+2019-03-11 12:09:41.888 INFO [main] [Main] [Game_Core] [Main.Game_Core(Main.java:36)] - User word: retype   Bulls: 5   Cows: 0
+2019-03-11 12:09:50.553 INFO [main] [Main] [Game_Core] [Main.Game_Core(Main.java:36)] - User word: retype   Bulls: 6   Cows: 0
+2019-03-11 12:09:50.554 INFO [main] [Main] [main] [Main.main(Main.java:88)] - Win!

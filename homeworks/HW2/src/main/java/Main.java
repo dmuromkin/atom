@@ -1,3 +1,5 @@
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -5,12 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class Main {
 
-    // private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
-    private static final Logger log = Logger.getLogger(Main.class.getName());
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
+    //private static final Logger log = Logger.getLogger(Main.class.getName());
     public static int bulls;
     public static int cows;
 
@@ -32,6 +33,7 @@ public class Main {
             result = true;
         else
             System.out.printf("bulls:%d cows:%d\n", bulls, cows);
+        log.info("User word: " + Answer + "   Bulls: " + bulls +"   Cows: "+cows);
         return result;
     }
 
@@ -72,6 +74,7 @@ public class Main {
             if (user_word.length() != answer.length()) {
                 System.out.println("Incorrect word length!");
                 System.out.printf("There are %d letters in my word\n", answer.length());
+                log.info("Incorrect word length: "+user_word.length()+"/"+answer.length());
                 attempts++;
             } else
                 result = Game_Core(user_word, answer);

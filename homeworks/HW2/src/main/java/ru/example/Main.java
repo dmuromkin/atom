@@ -1,3 +1,5 @@
+package ru.example;
+
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
@@ -11,7 +13,7 @@ import java.util.Scanner;
 public class Main {
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Main.class.getName());
-    //private static final Logger log = Logger.getLogger(Main.class.getName());
+
     public static int bulls;
     public static int cows;
 
@@ -20,19 +22,43 @@ public class Main {
         cows = 0;
         boolean result = false;
         for (int i = 0; i < Answer.length(); i++) {
-            for (int j = 0; j < Answer.length(); j++)
-                if (user_word.toCharArray()[i] == Answer.toCharArray()[j]) {
-                    if (i == j) {
-                        bulls++;
-                        i++;
-                    } else
-                        cows++;
-                }
+            if (user_word.toCharArray()[i] == Answer.toCharArray()[i])
+                bulls++;
         }
         if (bulls == Answer.length())
             result = true;
-        else
+        else {
+            char letter;
+            boolean[] GameFlag;
+            boolean[] PlayerFlag;
+
+            GameFlag = new boolean[Answer.length()];
+            PlayerFlag = new boolean[user_word.length()];
+            for (int i = 0; i < Answer.length(); i++) {
+                if (Answer.toCharArray()[i] == user_word.toCharArray()[i]) {
+                    GameFlag[i] = false;
+                    PlayerFlag[i] = false;
+                } else {
+                    GameFlag[i] = true;
+                    PlayerFlag[i] = true;
+                }
+
+            }
+            for (int i = 0; i < user_word.length(); i++) {
+                letter = user_word.toCharArray()[i];
+                if (user_word.indexOf(letter) != -1 && PlayerFlag[i]) {
+                    for (int j = 0; j < Answer.length(); j++) {
+                        if (letter == Answer.toCharArray()[j] && GameFlag[j]) {
+                            PlayerFlag[i] = false;
+                            GameFlag[j] = false;
+                            cows++;
+                            break;
+                        }
+                    }
+                }
+            }
             System.out.printf("bulls:%d cows:%d\n", bulls, cows);
+        }
         log.info("User word: " + user_word + "   Bulls: " + bulls + "   Cows: " + cows);
         return result;
     }
@@ -62,6 +88,7 @@ public class Main {
         int number = rnd.nextInt(count);
         String answer = arr.get(number);
         System.out.println(answer);
+        log.info("Right answer: " + answer);
         boolean result = false;
         int attempts = 10;
         System.out.println("Make sure u switched English");

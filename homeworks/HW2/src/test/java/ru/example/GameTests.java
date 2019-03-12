@@ -1,4 +1,4 @@
-
+package ru.example;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,5 +23,10 @@ public class GameTests {
         Main.Game_Core("close","mouse");
         assertThat(Main.bulls, is(equalTo(2)) );
         assertThat(Main.cows, is(equalTo(1)) );
+    }
+    @Test
+    public void game_Core_4() throws Exception {
+        Main.Game_Core("aval","java");
+        assertThat(Main.cows, is(equalTo(3)) );
     }
   }

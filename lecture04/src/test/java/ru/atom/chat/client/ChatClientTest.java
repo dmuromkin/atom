@@ -41,6 +41,7 @@ public class ChatClientTest {
         System.out.println(response.body().string());
         Assert.assertEquals(200, response.code());
     }
+
     @Test
     public void say() throws IOException {
         Response response1 = ChatClient.login(MY_NAME_IN_CHAT);

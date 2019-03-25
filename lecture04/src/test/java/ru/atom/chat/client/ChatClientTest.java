@@ -2,12 +2,10 @@ package ru.atom.chat.client;
 
 import okhttp3.Response;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.atom.chat.client.ChatClient;
 import ru.atom.chat.server.ChatApplication;
 
 import java.io.IOException;
@@ -65,7 +63,7 @@ public class ChatClientTest {
 
     @Test
     public void clearHistory() throws IOException {
-        Response response = ChatClient.ClearChatHistory();
+        Response response = ChatClient.clearChatHistory();
         System.out.println("[" + response + "]");
         String responseBody = response.body().string();
         System.out.println(responseBody);

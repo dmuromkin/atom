@@ -9,5 +9,5 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class ChatApplication {
     public static void main(String[] args) {
         SpringApplication.run(ChatApplication.class, args);
-    }//first commit
+    }
 }

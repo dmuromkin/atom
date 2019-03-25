@@ -68,7 +68,7 @@ public class ChatClient {
         return client.newCall(request).execute();
     }
 
-    public static Response ClearChatHistory() throws IOException {
+    public static Response clearChatHistory() throws IOException {
         Request request = new Request.Builder()
                 .delete()
                 .url(PROTOCOL + HOST + PORT + "/chat/clearChat")

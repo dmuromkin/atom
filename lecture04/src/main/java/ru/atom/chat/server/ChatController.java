@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 @Controller
 @RequestMapping("chat")
 public class ChatController {
@@ -125,7 +126,6 @@ public class ChatController {
     )
     public ResponseEntity deleteHistory() {
         messages.clear();
-
         return ResponseEntity.ok("Messages have been deleted successfully!");
     }
 

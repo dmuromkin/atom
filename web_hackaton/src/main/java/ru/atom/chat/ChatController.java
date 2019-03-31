@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
+
 @Controller
 @RequestMapping("chat")
 public class ChatController {
@@ -54,12 +55,12 @@ public class ChatController {
     @RequestMapping(
             path = "chat",
             method = RequestMethod.GET,
-            produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> chat() {
-        return new ResponseEntity<>(messages.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining("\n")),
-                HttpStatus.OK);
+            produces = MediaType.TEXT_PLAIN_VALUE
+    )
+    public ResponseEntity chat() {
+        String responseBody = String.join("\n", messages);
+
+        return ResponseEntity.ok(responseBody);
     }
 
     /**
@@ -70,7 +71,8 @@ public class ChatController {
             method = RequestMethod.GET,
             produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity online() {
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);//TODO
+        String responseBody = String.join("\n", usersOnline.keySet().stream().sorted().collect(Collectors.toList()));
+        return ResponseEntity.ok(responseBody);
     }
 
     /**
@@ -79,10 +81,16 @@ public class ChatController {
     @RequestMapping(
             path = "logout",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @ResponseStatus(HttpStatus.OK)
+            produces = MediaType.TEXT_PLAIN_VALUE
+    )
     public ResponseEntity logout(@RequestParam("name") String name) {
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);//TODO
+        if (usersOnline.containsKey(name)) {
+            usersOnline.remove(name);
+            messages.add("[" + name + "] logged out");
+            return ResponseEntity.ok("User " + name + " successfully logged out!");
+        }
+
+        return ResponseEntity.badRequest().body("User " + name + " is not exists");
     }
 
 
@@ -95,6 +103,11 @@ public class ChatController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity say(@RequestParam("name") String name, @RequestParam("msg") String msg) {
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);//TODO
+        if (usersOnline.containsKey(name)) {
+            messages.add("(" + name + "): " + msg);
+            return ResponseEntity.ok("(" + name + "): " + msg);
+        } else {
+            return ResponseEntity.badRequest().body("User with name " + name + " is not found");
+        }
     }
 }

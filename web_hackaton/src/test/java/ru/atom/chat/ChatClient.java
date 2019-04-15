@@ -5,11 +5,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import java.io.File;
 import java.io.IOException;
 
 
+
+//@RequestMapping("/system")
 public class ChatClient {
     private static final OkHttpClient client = new OkHttpClient();
     private static final String PROTOCOL = "http://";
@@ -24,7 +28,8 @@ public class ChatClient {
                 .post(RequestBody.create(mediaType, "name=" + name))
                 .url(PROTOCOL + HOST + PORT + "/chat/login")
                 .build();
-
+        File src = new File("History.txt");
+        System.out.println("Works");
         return client.newCall(request).execute();
     }
 

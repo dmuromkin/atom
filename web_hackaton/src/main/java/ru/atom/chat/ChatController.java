@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.*;
+import java.text.*;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,7 +28,10 @@ public class ChatController {
 
     private Queue<String> messages = new ConcurrentLinkedQueue<>();
     private Map<String, String> usersOnline = new ConcurrentHashMap<>();
-
+    int UserId;
+    int[] count_attempts = new int[20];
+    ArrayList<String> Users= new ArrayList();
+    long[] timings=new long[20];
     /**
      * curl -X POST -i localhost:8080/chat/login -d "name=I_AM_STUPID"
      */
@@ -45,6 +51,7 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Already logged in:(");
         }
         usersOnline.put(name, name);
+        Users.add(name);
         messages.add("[" + name + "] logged in");
         return ResponseEntity.ok().build();
     }
@@ -93,7 +100,7 @@ public class ChatController {
         return ResponseEntity.badRequest().body("User " + name + " is not exists");
     }
 
-
+//C:\curl-7.64.0-win64-mingw\bin
     /**
      * curl -X POST -i localhost:8080/chat/say -d "name=I_AM_STUPID&msg=Hello everyone in this chat"
      */
@@ -103,11 +110,49 @@ public class ChatController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity say(@RequestParam("name") String name, @RequestParam("msg") String msg) {
+        SimpleDateFormat sdfDate = new SimpleDateFormat(" HH:mm:ss");
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
         if (usersOnline.containsKey(name)) {
-            messages.add("(" + name + "): " + msg);
-            return ResponseEntity.ok("(" + name + "): " + msg);
+            UserId=Users.indexOf(name);
+            if(notspam(UserId)==false) {
+                messages.add(strDate+" (" + name + "): msg blocked");
+                return ResponseEntity.badRequest().body("(" + name + ") msg blocked");
+            }
+            else {
+                messages.add(strDate+" (" + name + "): " + msg);
+                return ResponseEntity.ok(strDate+" (" + name + "): " + msg);
+            }
         } else {
             return ResponseEntity.badRequest().body("User with name " + name + " is not found");
         }
     }
+     public boolean notspam(int ID)
+     {
+         boolean result=true;
+         long last_msg=System.currentTimeMillis();
+         if(timings[ID]==0) {
+             timings[ID] = System.currentTimeMillis();
+             count_attempts[ID]+=1;
+         }
+         else {
+             count_attempts[ID]+=1;
+             last_msg=timings[ID];
+             timings[ID] = System.currentTimeMillis();
+             if (count_attempts[ID] > 3) {
+                 long difference = (timings[ID]-last_msg);
+                 if (difference < 3000)
+                     result = false;
+                 else
+                     count_attempts[ID]=1;
+             }
+         }
+             return result;
+
+     }
 }
+// cd C:\curl-7.64.0-win64-mingw\bin
+//curl -X POST -i localhost:8080/chat/login -d "name=I_AM_STUPID"
+/**
+ * curl -X POST -i localhost:8080/chat/say -d "name=I_AM_STUPID&msg=Hello everyone in this chat"
+ */

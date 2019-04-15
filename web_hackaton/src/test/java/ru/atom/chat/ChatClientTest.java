@@ -33,21 +33,21 @@ public class ChatClientTest {
 
     private static String MY_NAME_IN_CHAT = "I_AM_STUPID";
     private static String MY_MESSAGE_TO_CHAT = "KILL_ME_SOMEONE";
-    private static  String user="Dmitry";
+    private static String user = "Dmitry";
     @Autowired
     private MockMvc mockMvc;
 
 
     @Test
     public void login() throws Exception {
-        String error ="Already logged in:(";
+        String error = "Already logged in:(";
         mockMvc.perform(post("/chat/login")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",MY_NAME_IN_CHAT))
+                .param("name", MY_NAME_IN_CHAT))
                 .andExpect(status().isOk());
         mockMvc.perform(post("/chat/login")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",MY_NAME_IN_CHAT))
+                .param("name", MY_NAME_IN_CHAT))
                 .andExpect(content().string(error));
         /*Response response = ChatClient.login(MY_NAME_IN_CHAT);
 
@@ -66,10 +66,10 @@ public class ChatClientTest {
         Assert.assertEquals(200, response.code());*/
         mockMvc.perform(post("/chat/login")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user));
+                .param("name", user));
         mockMvc.perform(post("/chat/logout")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user));
+                .param("name", user));
        /* String answer="["+user+"] logged in\n" +
                 "["+MY_NAME_IN_CHAT+"] logged in";*/
         mockMvc.perform(get("/chat/chat"))
@@ -81,13 +81,13 @@ public class ChatClientTest {
         //String user="Dmitry";
         mockMvc.perform(post("/chat/login")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user));
+                .param("name", user));
         mockMvc.perform(get("/chat/online"))
                 .andExpect(content().string(user))
                 .andExpect(status().isOk());
         mockMvc.perform(post("/chat/logout")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user));
+                .param("name", user));
         /*Response response = ChatClient.viewOnline();
         System.out.println("[" + response + "]");
         System.out.println(response.body().string());
@@ -98,15 +98,15 @@ public class ChatClientTest {
     public void say() throws Exception {
         mockMvc.perform(post("/chat/login")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user));
+                .param("name", user));
         mockMvc.perform(post("/chat/say")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user)
-                .param("msg","Hello"))
+                .param("name", user)
+                .param("msg", "Hello"))
                 .andExpect(status().isOk());
         mockMvc.perform(post("/chat/logout")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-                .param("name",user));
+                .param("name", user));
         /*Response response1 = ChatClient.login(MY_NAME_IN_CHAT);
         System.out.println("[" + response1 + "]");
         Response response = ChatClient.say(MY_NAME_IN_CHAT, MY_MESSAGE_TO_CHAT);

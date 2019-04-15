@@ -7,7 +7,7 @@ repositories {
 }
 
 apply plugin: 'java'
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 
 dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api

@@ -2,6 +2,7 @@ package ru.atom.chat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,23 +21,28 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
+import java.sql.SQLException;
 
 
+@EntityScan
 @Controller
 @RequestMapping("chat")
 public class ChatController {
-    private static final Logger log = LoggerFactory.getLogger(ChatController.class);
 
+    private static final Logger log = LoggerFactory.getLogger(ChatController.class);
+    private boolean connection = false;
     private Queue<String> messages = new ConcurrentLinkedQueue<>();
     private Map<String, String> usersOnline = new ConcurrentHashMap<>();
     private int UserId;
     private int[] count_attempts = new int[20];
     static ArrayList<String> Users = new ArrayList();
     static long[] timings = new long[20];
-
+    //System.out.println("Testing connection to PostgreSQL JDBC");
     /**
      * curl -X POST -i localhost:8080/chat/login -d "name=I_AM_STUPID"
      */
+
+
     @RequestMapping(
             path = "login",
             method = RequestMethod.POST,
@@ -51,9 +58,19 @@ public class ChatController {
         if (usersOnline.containsKey(name)) {
             return ResponseEntity.badRequest().body("Already logged in:(");
         }
+        if(connection==false)
+        {
+            PostSQLBase baseC = new PostSQLBase();
+            ArrayList<String> history = new ArrayList<String>();
+            history=baseC.getdata();
+            for(String message : history)
+                messages.add(message);
+        }
+        connection=true;
         usersOnline.put(name, name);
         Users.add(name);
         messages.add("[" + name + "] logged in");
+
         return ResponseEntity.ok().build();
     }
 
@@ -111,7 +128,9 @@ public class ChatController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity say(@RequestParam("name") String name, @RequestParam("msg") String msg) {
+    public ResponseEntity say(@RequestParam("name") String name, @RequestParam("msg") String msg) throws SQLException {
+        /*PostSQLBase ss =new PostSQLBase();
+        ss.chat_say(name,msg);*/
         SimpleDateFormat sdfDate = new SimpleDateFormat(" HH:mm:ss");
         Date now = new Date();
         String strDate = sdfDate.format(now);
@@ -122,6 +141,8 @@ public class ChatController {
                 return ResponseEntity.badRequest().body("(" + name + ") msg blocked");
             } else {
                 messages.add(strDate + " (" + name + "): " + msg);
+                PostSQLBase baseC = new PostSQLBase();
+                baseC.chat_say(name,msg);
                 return ResponseEntity.ok(strDate + " (" + name + "): " + msg);
             }
         } else {
@@ -156,3 +177,4 @@ public class ChatController {
 /**
  * curl -X POST -i localhost:8080/chat/say -d "name=I_AM_STUPID&msg=Hello everyone in this chat"
  */
+//Hibernate postgresql
